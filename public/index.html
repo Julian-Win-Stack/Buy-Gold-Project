@@ -22,19 +22,19 @@
             <p>£<span id="price-display" class="price" aria-live="assertive">----.--</span> / Oz*</p>
             <p id="connection-status" class="status" aria-live="polite">Live Price 🟢</p>
         </section>
-        <form>
+        <form class="invest-form">
             <label for="investment-amount">Amount to invest</label>
             <div class="input-container">
                 <div class="currency">£</div>
                 <input type="number" id="investment-amount" placeholder="100.00" required>
             </div>
-            <button id="invest-btn" class="invest-btn" aria-label="Invest in gold now">Invest Now!</button>
+            <button id="invest-btn" class="invest-btn" aria-label="Invest in gold now" type="submit">Invest Now!</button>
         </form>
         <!-- This dialog opens after a successful purchase -->
         <dialog class="outputs" role="dialog" aria-labelledby="dialog-title" aria-describedby="investment-summary" lang="en">
             <h2>Summary</h2>
             <p id="investment-summary">You just bought 1.3 ounces (ozt) for £3000. \n You will receive documentation shortly.</p>
-                <button aria-label="Close dialog and return to main page" autofocus>OK</button>
+                <button aria-label="Close dialog and return to main page" autofocus id="popup-close-btn">OK</button>
         </dialog>
         <p class="footnote">* 1oz = 1 troy ounce of 24 Carat Gold</p>
     </main>

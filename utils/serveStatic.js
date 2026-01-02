@@ -18,6 +18,7 @@ export async function serveStatic(req, res, baseDir){
     
         sendResponse(res, 200, contentType, content)
     } catch (err){
+        console.error(err)
         sendResponse(res, 404, 'text/html', '404.html')
     }
 
