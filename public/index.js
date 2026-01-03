@@ -3,6 +3,9 @@ const investBtn = document.getElementById('invest-btn')
 const popupCloseBtn = document.getElementById('popup-close-btn')
 const investForm = document.querySelector('.invest-form')
 const outputs = document.querySelector('.outputs')
+const priceDisplay = document.getElementById('price-display')
+
+const eventSource = new EventSource('/gold/live')
 
 // eventlisteners
 investForm.addEventListener('submit',(e)=>{
@@ -32,6 +35,20 @@ async function checkStatus(){
     } catch{
         connectionStatus.textContent = 'Live Price 🔴'
     }
+}
+
+
+
+// eventSource function
+eventSource.onmessage = (event) =>{
+    const data = JSON.parse(event.data)
+    const goldPrice = data.price
+
+    priceDisplay.textContent = goldPrice
+}
+
+eventSource.onerror = ()=>{
+    console.log('Connection failed...')
 }
 
 
