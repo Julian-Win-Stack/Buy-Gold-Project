@@ -9,15 +9,21 @@ const investmentSummary = document.getElementById('investment-summary')
 const eventSource = new EventSource('/gold/live')
 
 // eventlisteners
-investForm.addEventListener('submit',(e)=>{
+investForm.addEventListener('submit',async(e)=>{
     e.preventDefault()
     const marketPrice = priceDisplay.textContent
-    const money = document.getElementById('investment-amount').value
-    const goldAmt = Number((money / marketPrice).toFixed(1))
-    investmentSummary.textContent = `You just bought ${goldAmt} ounces (ozt) for £${money}. \n You will receive documentation shortly.`
-
+    const investMoney = document.getElementById('investment-amount').value
+    const goldAmt = Number((investMoney / marketPrice).toFixed(3))
+    investmentSummary.textContent = `You just bought ${goldAmt} ounces (ozt) for £${investMoney}. \n You will receive documentation shortly.`
     outputs.style.display = 'flex'
     investForm.style.display = 'none'
+
+    await fetch('/purchase', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({investMoney})
+    })
+
 })
 
 popupCloseBtn.addEventListener('click', ()=>{
