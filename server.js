@@ -6,6 +6,7 @@ import {parseJSONbody} from './utils/parseJSONbody.js'
 import {addPurchase} from './utils/addPurchase.js'
 import {generateReceiptPdf} from './utils/generateReceiptPdf.js'
 import {sendEmail} from './utils/sendEmail.js'
+import {handleGoldLive} from './utils/handleGoldLive.js'
 
 const PORT = 8000
 
@@ -15,17 +16,7 @@ let id = ''
 
 const server = http.createServer(async(req,res)=>{
     if (req.url === '/gold/live'){
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'text/event-stream')
-        res.setHeader('Cache-Control', 'no-cache')
-        res.setHeader('Connection', 'keep-alive')
-
-        setInterval(() => {
-            goldPrice = getGoldPrice()
-            res.write(
-                `data: ${JSON.stringify({price: goldPrice})}\n\n`
-            )
-        }, 10000);
+        handleGoldLive(req, res, goldPrice)
         return
 
     }

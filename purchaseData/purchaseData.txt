@@ -9,3 +9,6 @@ ID: 1767483087639, Timestamp: 2026-01-03T23:31:27.639Z, amount paid: £1000, pri
 ID: 1767497665054, Timestamp: 2026-01-04T03:34:25.054Z, amount paid: £1000, price per Oz: £1998.36, gold sold: 0.5 Oz
 ID: 1767498086047, Timestamp: 2026-01-04T03:41:26.047Z, amount paid: £1000, price per Oz: £2002.68, gold sold: 0.499 Oz
 ID: 1767498220283, Timestamp: 2026-01-04T03:43:40.283Z, amount paid: £1000, price per Oz: £2009.63, gold sold: 0.498 Oz
+ID: 1767499154322, Timestamp: 2026-01-04T03:59:14.322Z, amount paid: £1000, price per Oz: £1996.32, gold sold: 0.501 Oz
+ID: 1767499652801, Timestamp: 2026-01-04T04:07:32.801Z, amount paid: £10000, price per Oz: £2099.3, gold sold: 4.763 Oz
+ID: 1767500745491, Timestamp: 2026-01-04T04:25:45.491Z, amount paid: £1000, price per Oz: £1997.49, gold sold: 0.501 Oz

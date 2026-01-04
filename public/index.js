@@ -18,26 +18,16 @@ investForm.addEventListener('submit',async(e)=>{
 
     const email = (document.getElementById('email').value).trim()
     
-    await fetch('/purchase', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({investMoney})
-    })
+    await purchaseFetch(investMoney)
 
-    await fetch('/sendemail', {
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email})
-    })
+    await emailFetch(email)
 
-    outputs.style.display = 'flex'
-    investForm.style.display = 'none'
+    makePopupAppear()
 
 })
 
 popupCloseBtn.addEventListener('click', ()=>{
-    outputs.style.display = 'none'
-    investForm.style.display = 'flex'
+    makePopupClose()
     location.reload()
 })
 
@@ -58,6 +48,32 @@ async function checkStatus(){
     }
 }
 
+function makePopupAppear(){
+    outputs.style.display = 'flex'
+    investForm.style.display = 'none'
+    
+}
+
+function makePopupClose(){
+    outputs.style.display = 'none'
+    investForm.style.display = 'flex'
+}
+
+async function purchaseFetch(investMoney) {
+    await fetch('/purchase', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({investMoney})
+    })   
+}
+
+async function emailFetch(email) {
+    await fetch('/sendemail', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email})
+    })    
+}
 
 
 // eventSource function
