@@ -15,14 +15,23 @@ investForm.addEventListener('submit',async(e)=>{
     const investMoney = document.getElementById('investment-amount').value
     const goldAmt = Number((investMoney / marketPrice).toFixed(3))
     investmentSummary.textContent = `You just bought ${goldAmt} ounces (ozt) for £${investMoney}. \n You will receive documentation shortly.`
-    outputs.style.display = 'flex'
-    investForm.style.display = 'none'
 
+    const email = (document.getElementById('email').value).trim()
+    
     await fetch('/purchase', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({investMoney})
     })
+
+    await fetch('/sendemail', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email})
+    })
+
+    outputs.style.display = 'flex'
+    investForm.style.display = 'none'
 
 })
 

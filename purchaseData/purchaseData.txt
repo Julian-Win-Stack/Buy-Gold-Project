@@ -6,3 +6,6 @@ ID: 1767481462947, Timestamp: 2026-01-03T23:04:22.947Z, amount paid: £1000, pri
 ID: 1767481746396, Timestamp: 2026-01-03T23:09:06.396Z, amount paid: £1000, price per Oz: £, gold sold: Infinity Oz
 ID: 1767481859731, Timestamp: 2026-01-03T23:10:59.731Z, amount paid: £1000, price per Oz: £, gold sold: Infinity Oz
 ID: 1767483087639, Timestamp: 2026-01-03T23:31:27.639Z, amount paid: £1000, price per Oz: £2000.91, gold sold: 0.5 Oz
+ID: 1767497665054, Timestamp: 2026-01-04T03:34:25.054Z, amount paid: £1000, price per Oz: £1998.36, gold sold: 0.5 Oz
+ID: 1767498086047, Timestamp: 2026-01-04T03:41:26.047Z, amount paid: £1000, price per Oz: £2002.68, gold sold: 0.499 Oz
+ID: 1767498220283, Timestamp: 2026-01-04T03:43:40.283Z, amount paid: £1000, price per Oz: £2009.63, gold sold: 0.498 Oz
