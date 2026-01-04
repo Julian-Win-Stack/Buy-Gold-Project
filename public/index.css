@@ -5,6 +5,13 @@
     --brown: #2b2724;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
 body {
     background-color: var(--bg);
     font-family: 'Roboto', sans;
@@ -103,18 +110,21 @@ label {
 }
 
 input {
-    margin-left: 0;
-    padding: 1em;
-    width: 100%;
-    border: 2px solid var(--gold);
-    border-left: 0;
-    border-radius: 10px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    background-color: transparent;
-    color: var(--gold);
-    font-size: 120%;
+  padding: 1em;
+  width: 100%;
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  background-color: transparent;
+  color: var(--gold);
+  font-size: 120%;
 }
+
+.input-container input {
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 
 input::placeholder {
     font-size: 120%;
@@ -218,4 +228,19 @@ dialog button {
     right: 0;
     left: 0;
     inset: 0;
+}
+
+#email:focus, #email:active{
+  background-color: transparent;
+}
+
+/* Chrome / Safari autofill override */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--gold);
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 9999s ease-in-out 0s;
 }
