@@ -24,20 +24,37 @@ const server = http.createServer(async(req,res)=>{
         sendResponse(res, 200, 'application/json', JSON.stringify({ok: true}))
 
     }else if (req.url === '/purchase' && req.method === 'POST'){
-        const parsedData = await parseJSONbody(req)
-        const parsedDataInvestMoney = parsedData.investMoney
-        const goldAmt = Number((parsedDataInvestMoney / goldPrice).toFixed(3))
-        const timeStamp = new Date().toISOString()
-        id = Date.now()
-        addPurchase(id, timeStamp, parsedDataInvestMoney, goldPrice, goldAmt, __dirname)
-        await generateReceiptPdf(id, timeStamp, parsedDataInvestMoney, goldPrice, goldAmt, __dirname)
-        sendResponse(res, 200, 'text/html', `${timeStamp}, amount paid: £${parsedDataInvestMoney}, price per Oz: £${goldPrice}, gold sold: ${goldAmt} Oz`)
+        try{
+            const parsedData = await parseJSONbody(req)
+    
+            const parsedDataInvestMoney = parsedData.investMoney
+            const goldAmt = Number((parsedDataInvestMoney / goldPrice).toFixed(3))
+            const timeStamp = new Date().toISOString()
+            id = Date.now()
+    
+            await addPurchase(id, timeStamp, parsedDataInvestMoney, goldPrice, goldAmt, __dirname)
+            await generateReceiptPdf(id, timeStamp, parsedDataInvestMoney, goldPrice, goldAmt, __dirname)
+            sendResponse(res, 200, 'text/html', `${timeStamp}, amount paid: £${parsedDataInvestMoney}, price per Oz: £${goldPrice}, gold sold: ${goldAmt} Oz`)
+        } catch (err){
+            console.log(`Purchase Error: ${err}`)    
+            sendResponse(res, 400, 'text/html', `Purchase Error: ${err}`)
+        }
 
     } else if (req.url === '/sendemail' && req.method === 'POST'){
-        const toEmail = await parseJSONbody(req)
-        const attachmentPath = `./receipts/Receipt ${id}.pdf`
-        await sendEmail(toEmail.email, attachmentPath)
-        sendResponse(res, 200, 'text/html', `Email sent to ${JSON.stringify(toEmail)}`)
+        try{
+            const toEmail = await parseJSONbody(req)
+            if (!toEmail.email || typeof toEmail.email !== 'string' || !toEmail.email.includes('@')){
+                sendResponse(res, 400, 'text/html', `Email Error: Invalid Email`)
+                return
+            }
+
+            const attachmentPath = `./receipts/Receipt ${id}.pdf`
+            await sendEmail(toEmail.email, attachmentPath)
+            sendResponse(res, 200, 'text/html', `Email sent to ${JSON.stringify(toEmail)}`)
+        } catch(err){
+            console.log(`Email Error: ${err}`) 
+            sendResponse(res, 500, 'text/html', `Email Error: ${err}`)
+        }
 
 
     }else if (req.url.startsWith('/') && req.method === 'GET'){

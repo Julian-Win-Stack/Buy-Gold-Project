@@ -18,8 +18,14 @@ export async function serveStatic(req, res, baseDir){
     
         sendResponse(res, 200, contentType, content)
     } catch (err){
-        console.error(err)
-        sendResponse(res, 404, 'text/html', '404.html')
+        if (err.code === 'ENOENT'){
+            const filePath = path.join(baseDir, 'public', '404.html')
+            const content = await fs.readFile(filePath)
+            sendResponse(res, 404, 'text/html', content)
+        } else{
+            console.log(err)
+            sendResponse(res, 500, 'text/html', `Error: ${err}`)
+        }
     }
 
 }

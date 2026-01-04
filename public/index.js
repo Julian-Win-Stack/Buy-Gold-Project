@@ -5,30 +5,34 @@ const investForm = document.querySelector('.invest-form')
 const outputs = document.querySelector('.outputs')
 const priceDisplay = document.getElementById('price-display')
 const investmentSummary = document.getElementById('investment-summary')
+const investMoney = document.getElementById('investment-amount')
+const email = document.getElementById('email')
 
 const eventSource = new EventSource('/gold/live')
 
 // eventlisteners
 investForm.addEventListener('submit',async(e)=>{
     e.preventDefault()
-    const marketPrice = priceDisplay.textContent
-    const investMoney = document.getElementById('investment-amount').value
-    const goldAmt = Number((investMoney / marketPrice).toFixed(3))
-    investmentSummary.textContent = `You just bought ${goldAmt} ounces (ozt) for £${investMoney}. \n You will receive documentation shortly.`
-
-    const email = (document.getElementById('email').value).trim()
+    try{
+        const marketPrice = priceDisplay.textContent
+        const goldAmt = Number((investMoney.value / marketPrice).toFixed(3))
+        investmentSummary.textContent = `You just bought ${goldAmt} ounces (ozt) for £${investMoney.value}. \n You will receive documentation shortly.`
     
-    await purchaseFetch(investMoney)
-
-    await emailFetch(email)
-
-    makePopupAppear()
+        await purchaseFetch(investMoney.value)
+    
+        await emailFetch((email.value).trim())
+    
+        makePopupAppear()
+    } catch(err){
+        console.log(err)
+    }
 
 })
 
 popupCloseBtn.addEventListener('click', ()=>{
     makePopupClose()
-    location.reload()
+    investMoney.value = ''
+    email.value = ''
 })
 
 
